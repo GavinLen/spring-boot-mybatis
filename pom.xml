@@ -79,6 +79,7 @@
 
     <build>
         <finalName>spring-boot</finalName>
+        <defaultGoal>compile</defaultGoal>
         <plugins>
             <!-- Maven 编译插件 -->
             <plugin>
