@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--
+        1.属性资源
+            resource：指定来自 resource 中
+            url：指定来自本地磁盘中
+     -->
+    <properties resource="jdbc.properties"/>
+    <!--<properties url="E:\\resource\config.properties"/>-->
+
+    <!--
+        2.类路径入口
+            配置其中的 jar 包
+    -->
+    <!-- JDBC 驱动的路径 -->
+    <classPathEntry location="D:/Tool/mysql-connector-java-5.1.43.jar"/>
+
+    <!--
+        3.上下文配置
+            property：配置属性
+            plugin：配置插件
+                org.mybatis.generator.plugins.SerializablePlugin == 实体类实现 Serializable 接口
+                org.mybatis.generator.plugins.EqualsHashCodePlugin == 实体类生成 query() 和 hashCode()
+                org.mybatis.generator.plugins.ToStringPlugin == 实体类生成 toString()
+            commentGenerator：备注生成器
+            jdbcConnection：JDBC 配置
+            javaTypeResolver：Java 类型解析器
+                forceBigDecimals：是否强制对DECIMAL和NUMERIC 转成 java.math.BigDecimal
+            javaModelGenerator：Java Model 生成器
+                constructorBased：属性构造器
+                immutable：不生成 setter 方法，只能通过构造器来设置属性
+
+    -->
+    <context id="tBook">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 实体类实现 Serializable 接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 实体类生成 query() 和 hashCode() -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <!-- 实体类生成 toString() -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!-- 备注生成配置 -->
+        <commentGenerator>
+            <!-- 抑制所有注释 -->
+            <property name="suppressAllComments" value="false"/>
+            <!-- 抑制时间 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 添加数据库的备注 -->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!-- JDBC 连接配置 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.userName}"
+                        password="${jdbc.password}"/>
+        <!-- Java 类型解析器 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 配置生成的实体类 -->
+        <javaModelGenerator targetPackage="xyz.ieden.mb.entity" targetProject="src/main/java">
+            <!-- 每一个属性生成构造器 -->
+            <property name="constructorBased" value="true"/>
+            <!-- 表示自动生成类之后自动继承CoreEntity -->
+            <!--<property name="rootClass" value=""/>-->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 配置生成 XML 文件 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/mybatis"/>
+        <!-- 配置生成 Mapper 接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="xyz.ieden.mb.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <!-- 表示自动生成类之后自动实现接口CoreDao -->
+            <!--<property name="rootInterface" value="com.biu.wifi.core.base.CoreDao"/>-->
+        </javaClientGenerator>
+
+        <!-- 需要生成的表 -->
+        <table tableName="t_country" domainObjectName="Country"/>
+    </context>
+</generatorConfiguration>
