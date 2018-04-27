@@ -26,6 +26,16 @@
 
     <build>
         <finalName>spring-boot-mybatis-base</finalName>
+        <plugins>
+            <!-- 通过 spring-boot:run 启动时需要添加 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 
